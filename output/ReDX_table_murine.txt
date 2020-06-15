@@ -1,0 +1,25 @@
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline 
+Transition & Rank & Name & Threshold & Accuracy & F1 & Progress \\ 
+\hline 
+ESC - EPI & 1 & Klf4 & 10.94 & 0.9 & 0.79 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 2 & Esrrb & 10.69 & 0.97 & 0.93 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 3 & Zfp42 & 13.96 & 0.93 & 0.88 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 4 & Nr5a2 & 8.99 & 0.9 & 0.79 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 5 & Tbx3 & 10.97 & 0.9 & 0.77 & $X \leq T$ \\ 
+\cline{1-7} 
+EPI - NPC & 1 & Gdf3 & 7.78 & 0.87 & 0.86 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 2 & Pou5f1 & 7.33 & 0.9 & 0.9 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 3 & Fgf4 & 1.9 & 0.93 & 0.92 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 4 & Dnmt3b & 16.35 & 0.88 & 0.86 & $X \leq T$ \\ 
+\cline{2-7} 
+ & 5 & Dppa4 & 9.35 & 0.77 & 0.77 & $X \leq T$ \\ 
+\hline
+\end{tabular}
