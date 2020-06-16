@@ -187,14 +187,11 @@ rank_comparison_plot(MW_epi_npc_genes, ReDX_epi_npc_genes)
 
 # DATA ENTRY
 # Takes ~11 minutes to read in full Xenopus data
-xen_df = readtable("../data/xenopus/xenopus_expression.csv",
- skipstart = 1, header = true);
- delete!(xen_df,1);
+xen_df = readtable("../data/xenopus/xenopus_expression.csv")
 
 
  # Read in the associated annotations, adding the Celltype label to the xen_df
- xen_labels = readtable("../data/xenopus/xenopus_annotations.csv", skipstart = 1, header = true)
-  delete!(xen_labels,1);
+ xen_labels = readtable("../data/xenopus/xenopus_annotations.csv");
 
  xen_df[:Classification] = xen_labels[:Cluster_Label]
 
