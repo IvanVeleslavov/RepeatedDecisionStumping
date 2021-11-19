@@ -27,7 +27,7 @@ module RepeatedDecisionStumping
 
         # Construct a new dataframe df, that will eventually be returned with
         # only the information pertaining to the chosen features
-        df = DataFrame(Classification  = data_edit[:Classification])
+        df = DataFrame(Classification  = data_edit.Classification)
 
         # Initialise an array to store the generated stump models
         stump_store = []
@@ -38,7 +38,7 @@ module RepeatedDecisionStumping
         stump_data = DataFrame(Rank = Int[], Id = Int[], Name = Any[],
          Threshold = Any[], Accuracy = Float64[], F1 = Float64[], Model = Any[])
 
-        labels = map(string, data_edit[:Classification])
+        labels = map(string, data_edit.Classification)
 
         train_filter, test_filter = get_tt_filters(
          labels, tt_split, weighted)
@@ -50,7 +50,7 @@ module RepeatedDecisionStumping
         for rank = 1:quota
             # Build the stump, first separating the features and the labels
 
-            features = convert(Array{Float64}, data_edit[filter(x -> x != :Classification, names(data_edit))])
+            features = Matrix(data_edit[!, Not(:Classification)])
             train_features = features[train_filter,:]
             test_features = features[test_filter,:]
 
@@ -86,14 +86,14 @@ module RepeatedDecisionStumping
             push!(stump_data, [rank global_featid name threshold accuracy Fβ stump])
 
             # Add the information contained about this feature in data_edit to df
-            df[gene_names[local_featid]] = data_edit[gene_names[local_featid]]
+            df[!, gene_names[local_featid]] = data_edit[!, gene_names[local_featid]]
 
             # Add the stump model to the store of stumps
             push!(stump_store, stump)
 
             # Remove this feature from data_edit, so that it is not considered again
             # in future stumps
-            data_edit = data_edit[filter(x -> x != gene_names[local_featid], names(data_edit))]
+            data_edit = data_edit[!, filter(x -> x != gene_names[local_featid], names(data_edit))]
          end
 
          # Return the dataframe containing the stumps created and their info
@@ -110,11 +110,11 @@ module RepeatedDecisionStumping
             label1 = transitions[ii,1]
             label2 = transitions[ii,2]
 
-            t_only = data[((data[:Classification].==label1) .| (data[:Classification].==label2)), :]
+            t_only = data[((data.Classification .== label1) .| (data.Classification .== label2)), :]
 
             stump_data = iterative_stumper(t_only, repeats, tt_split, label1, label2, weighted)
 
-            for ele in stump_data[:Name]
+            for ele in stump_data.Name
                 push!(name_list, ele)
             end
 
@@ -126,7 +126,7 @@ module RepeatedDecisionStumping
             label2 = string(label2)
 
             progress_statements = []
-            for stump_model in stump_data[:Model]
+            for stump_model in stump_data.Model
                 left_vote = stump_model.left.majority
 
                 if left_vote == label1
@@ -148,7 +148,7 @@ module RepeatedDecisionStumping
         return assembled
     end
 
-    function get_tt_filters(full_labels::Array, tt_split::Float64, weighted::Bool=false)
+    function get_tt_filters(full_labels::AbstractArray, tt_split::Float64, weighted::Bool=false)
         if weighted
             sw = Array{Any}(full_labels)
             num_labels = length(sw)
@@ -181,10 +181,7 @@ module RepeatedDecisionStumping
 
         # Capitalise column names
         vars = names(daf)
-        for (i,v) in enumerate(vars)
-            vars[i] = Symbol(titlecase(string(v)))
-        end
-        names!(daf,vars)
+        rename!(daf, titlecase.(string.(vars)))
 
         # Set up running string to ultimately print to output .txt file
         runner = ""
@@ -224,7 +221,7 @@ module RepeatedDecisionStumping
                 runner*= "\\cline{$resume_line-$c_lim} \n"
 
                 row_text *= " & " ^(same_index -1)
-                for entry in convert(Array, row[:])[:][same_index:end]
+                for entry in Array(row[:])[:][same_index:end]
 
                     # If number, then round
                     if typeof(entry) <: AbstractFloat
@@ -245,7 +242,7 @@ module RepeatedDecisionStumping
             # proceded by a full horizontal line
             else
                 runner*= "\\hline \n"
-                for entry in convert(Array, row[:])[:]
+                for entry in Array(row[:])[:]
                     # If number, then round
                     if typeof(entry) <: AbstractFloat
                         entry = round(entry, digits = 2)
@@ -294,8 +291,8 @@ module RepeatedDecisionStumping
 
             trans_list = fill(string(label1)*" - "*string(label2), length(gene_list))
 
-            trans_data = in_data[((in_data[:Classification].==label1) .|
-             (in_data[:Classification].==label2)), :]
+            trans_data = in_data[((in_data.Classification .== label1) .|
+             (in_data.Classification .== label2)), :]
 
             daf = DataFrame(Transition = trans_list,
              Rank = fill(0, length(gene_list)),
@@ -314,7 +311,7 @@ module RepeatedDecisionStumping
                 # TODO: Decide how and when to use tt_filter to test for stump
                 # performance when calling rs_stability
                 train_filter, test_filter = RepeatedDecisionStumping.get_tt_filters(
-                 trans_data[:Classification], tt_split, weighted)
+                 trans_data.Classification, tt_split, weighted)
 
                 train_data = trans_data[train_filter,:]
                 test_data = trans_data[test_filter,:]
@@ -324,14 +321,14 @@ module RepeatedDecisionStumping
                 stump_data = RepeatedDecisionStumping.iterative_stumper(train_data, quota, tt_split, label1, label2, weighted);
                 # stump_data = out[1]
 
-                for rank in stump_data[:Rank]
-                    feat_name = stump_data[:Name][rank]
-                    daf_rowid = findfirst(daf[:Gene].== feat_name)
+                for rank in stump_data.Rank
+                    feat_name = stump_data.Name[rank]
+                    daf_rowid = findfirst(daf.Gene .== feat_name)
 
-                    daf[:Stability][daf_rowid] += (1+quota)-rank
+                    daf.Stability[daf_rowid] += (1+quota)-rank
 
                     # Evaluate model performance on withheld test data
-                    model = stump_data[:Model][rank]
+                    model = stump_data.Model[rank]
 
                     # in light of testing performance with tt split internally
                     # in iterative stumper, should just be able to pull the
@@ -345,24 +342,24 @@ module RepeatedDecisionStumping
                     # conf = confusion_matrix(test_labels, predictions)
                     # accuracy = conf.accuracy
 
-                    accuracy = stump_data[:Accuracy][rank]
+                    accuracy = stump_data.Accuracy[rank]
 
-                    daf[:ValsPerformance][daf_rowid] =
-                     [daf[:ValsPerformance][daf_rowid]...,accuracy]
+                    daf.ValsPerformance[daf_rowid] =
+                     [daf.ValsPerformance[daf_rowid]...,accuracy]
 
-                    model_threshold = stump_data[:Threshold][rank]
-                    daf[:ThreshVals][daf_rowid] =
-                     [daf[:ThreshVals][daf_rowid]...,model_threshold]
+                    model_threshold = stump_data.Threshold[rank]
+                    daf.ThreshVals[daf_rowid] =
+                     [daf.ThreshVals[daf_rowid]...,model_threshold]
                 end
             end
 
-            for (ii,eacharray) in enumerate(daf[:ValsPerformance])
+            for (ii,eacharray) in enumerate(daf.ValsPerformance)
                 if length(eacharray) > 0
-                    daf[:MeanPerformance][ii] = mean(eacharray)
+                    daf.MeanPerformance[ii] = mean(eacharray)
                 end
             end
 
-            daf[:Stability] = daf[:Stability] ./ (partitions*quota)
+            daf.Stability = daf.Stability ./ (partitions*quota)
             sort!(daf, (:Stability), rev=true)
 
             # Only show the top (quota) most stable features
@@ -374,7 +371,7 @@ module RepeatedDecisionStumping
         stability_df = vcat(over_all_transitions...)
 
         rank_list = repeat(collect(1:report); outer=[size(transitions,1)])
-        stability_df[:Rank] = rank_list
+        stability_df.Rank = rank_list
 
         return stability_df
     end
@@ -390,7 +387,7 @@ module RepeatedDecisionStumping
         start_row =1+(report*(trans_id-1))
         end_row = report*trans_id
 
-        curr_plot = Plots.plot(stab_daf[:Stability][start_row:end_row],
+        curr_plot = Plots.plot(stab_daf.Stability[start_row:end_row],
          linestyle = :solid,
          linecolor = :red,
 
@@ -399,26 +396,26 @@ module RepeatedDecisionStumping
 
          title = "Feature stability at "*string(label1)*"/"*string(label2)*" boundary",
          ylim = (0,1),
-         xticks = (collect(1:report), stab_daf[:Gene][start_row:end_row]), rotation = 90,
-         legend = false, labels = ["Peturbation"])#, xlim = (1,quota))
+         xticks = (collect(1:report), stab_daf.Gene[start_row:end_row]), rotation = 90,
+         legend = false, labels = "Peturbation")#, xlim = (1,quota))
 
          # What about complete noise. or perfectly ordered data?
          # Perfect order...
         perfect = collect(quota:-1:1) .* repeats
         perfect = perfect ./ (repeats*quota)
-        plot!(perfect[1:report], labels = ["Peturbation", "No peturbation"],
+        plot!(perfect[1:report], labels = "No peturbation",
          linestyle = :dash, linecolor = :black)
 
         # Naive order
         naive = fill(1/size(data,2), quota)
-        plot!(naive[1:report], labels = ["Peturbation","No peturbation", "Naïve"],
+        plot!(naive[1:report], labels = "Naïve",
          linestyle = :solid, linecolor = :blue, margin=5Plots.mm)
 
 
         push!(plot_store, curr_plot)
       end
 
-      plot(plot_store..., layout = (length(plot_store),1), grid = false, legend = :topright)
+      Plots.plot(plot_store..., layout = (length(plot_store),1), grid = false, legend = :topright)
     end
 
     function plot_thresholds(expr_data, annotations, rs_results, raw_repeats,
@@ -464,46 +461,50 @@ module RepeatedDecisionStumping
 
             # For each rank that we have chosen to view,,,
             for (plot_column, rank) in enumerate(view_ranks)
-
+            
                 # Identify the row index in name_thresh this rank/time boundary combo refers to
-                pick = rank + raw_repeats*(ii_transition-1)
-
+                pick = rank + raw_repeats * (ii_transition - 1)
+            
                 # Use this index to pull out the appropriate name and threshold
-                gene_name = rs_results[:Name][pick]
-                threshold = rs_results[:Threshold][pick]
-
+                gene_name = rs_results.Name[pick]
+                threshold = rs_results.Threshold[pick]
+            
                 # Use the gene name to pull out the raw data for plotting
-                gene_data = expr_data[Symbol(gene_name)]
-
+                gene_data = expr_data[!, Symbol(gene_name)]
+            
                 curr_axis = axes[ii_transition, plot_column]
-
+            
+                # Bandwidth parameter passed to Seaborn.kdeplot
+                # This is to prevent the error: 'Selected KDE bandwidth is 0. Cannot estiamte density.'
+                kde_kws = Dict("bw" => "scott")
+            
                 plt.figure()
                 Seaborn.distplot(gene_data[f_start], ax = curr_axis,
-                 color = colour_dict[l_start],
-                 hist=histbool, kde = kdebool, rug=rugbool)
+                    color = colour_dict[l_start],
+                    hist = histbool, kde = kdebool, rug = rugbool)
                 Seaborn.distplot(gene_data[f_end], ax = curr_axis,
-                 color = colour_dict[l_end], hist=histbool,
-                 kde = kdebool, rug=rugbool)
-
+                    color = colour_dict[l_end], hist = histbool,
+                    kde = kdebool, rug = rugbool)
+            
                 # Set the appropriate xlabel
-                curr_axis.set_xlabel(gene_name,fontsize = 18)
-
+                curr_axis.set_xlabel(gene_name, fontsize = 18)
+            
                 # Add the correct threshold as a vertical line
-                curr_axis.axvline(threshold, 0,1.0, c = "k").set_linestyle("--");
-
+                curr_axis.axvline(threshold, 0, 1.0, c = "k").set_linestyle("--")
+            
                 # Fix x axis from 0
                 curr_axis.set_xlim(0,)
-
+            
                 # Scale y-axis for legibility
                 ymin, ymax = curr_axis.get_ylim()
                 if ymax > 0.5
-                    axes[ii_transition, plot_column].set_ylim(0,0.3)
+                    axes[ii_transition, plot_column].set_ylim(0, 0.3)
                 end
-
+            
                 if ii_transition == 1
-                    axes[ii_transition, plot_column].set_title("Rank "* string(rank), fontsize = 24)
+                    axes[ii_transition, plot_column].set_title("Rank " * string(rank), fontsize = 24)
                 end
-
+            
             end
         end
     end

@@ -12,14 +12,14 @@ ESC - EPI & 1 & Klf4 & 10.94 & 0.9 & 0.79 & $X \leq T$ \\
 \cline{2-7} 
  & 5 & Tbx3 & 10.97 & 0.9 & 0.77 & $X \leq T$ \\ 
 \cline{1-7} 
-EPI - NPC & 1 & Gdf3 & 7.78 & 0.87 & 0.86 & $X \leq T$ \\ 
+EPI - NPC & 1 & Pou5f1 & 6.91 & 0.87 & 0.88 & $X \leq T$ \\ 
 \cline{2-7} 
- & 2 & Pou5f1 & 7.33 & 0.9 & 0.9 & $X \leq T$ \\ 
+ & 2 & Gdf3 & 2.95 & 0.9 & 0.9 & $X \leq T$ \\ 
 \cline{2-7} 
- & 3 & Fgf4 & 1.9 & 0.93 & 0.92 & $X \leq T$ \\ 
+ & 3 & Fgf4 & 1.07 & 0.88 & 0.87 & $X \leq T$ \\ 
 \cline{2-7} 
- & 4 & Dnmt3b & 16.35 & 0.88 & 0.86 & $X \leq T$ \\ 
+ & 4 & Dnmt3b & 16.35 & 0.89 & 0.88 & $X \leq T$ \\ 
 \cline{2-7} 
- & 5 & Dppa4 & 9.35 & 0.77 & 0.77 & $X \leq T$ \\ 
+ & 5 & Utf1 & 3.49 & 0.82 & 0.82 & $X \leq T$ \\ 
 \hline
 \end{tabular}
