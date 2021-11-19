@@ -12,54 +12,54 @@ S08-blastula - S10-neuroectoderm & 1 & LOC734001\_LOC728026 & 19.23 & 0.93 & 0.9
 \cline{2-7} 
  & 5 & sox2\_SOX2 & 2.21 & 0.84 & 0.77 & $X > T $ \\ 
 \cline{1-7} 
-S08-blastula - S10-non-neural ectoderm & 1 & LOC734001\_LOC728026 & 17.51 & 0.94 & 0.9 & $X > T $ \\ 
+S08-blastula - S10-non-neural ectoderm & 1 & LOC734001\_LOC728026 & 17.39 & 0.94 & 0.91 & $X > T $ \\ 
 \cline{2-7} 
- & 2 & eef1a1\_EEF1AS & 12.06 & 0.89 & 0.83 & $X > T $ \\ 
+ & 2 & eef1a1\_EEF1AS & 11.36 & 0.9 & 0.86 & $X > T $ \\ 
 \cline{2-7} 
- & 3 & cirbp\_CIRBP & 21.39 & 0.87 & 0.79 & $X > T $ \\ 
+ & 3 & LOC100488209\_MUC5B & 4.69 & 0.87 & 0.83 & $X > T $ \\ 
 \cline{2-7} 
- & 4 & LOC100488209\_MUC5B & 4.69 & 0.89 & 0.85 & $X > T $ \\ 
+ & 4 & cirbp\_CIRBP & 21.25 & 0.9 & 0.85 & $X > T $ \\ 
 \cline{2-7} 
- & 5 & hnrnpa1\_LOC397751 & 8.76 & 0.88 & 0.81 & $X > T $ \\ 
+ & 5 & hnrnpa1\_LOC397751 & 8.71 & 0.88 & 0.82 & $X > T $ \\ 
 \cline{1-7} 
-S08-blastula - S10-marginal zone & 1 & eef1a1\_EEF1AS & 13.42 & 0.85 & 0.79 & $X > T $ \\ 
+S08-blastula - S10-marginal zone & 1 & eef1a1\_EEF1AS & 13.42 & 0.85 & 0.81 & $X > T $ \\ 
 \cline{2-7} 
- & 2 & Xetrov90028359m\_GSK3B & 147.08 & 0.84 & 0.81 & $X \leq T$ \\ 
+ & 2 & Xetrov90028359m\_GSK3B & 147.08 & 0.82 & 0.79 & $X \leq T$ \\ 
 \cline{2-7} 
- & 3 & ccnb1\_CCNB1 & 0.69 & 0.83 & 0.73 & $X \leq T$ \\ 
+ & 3 & ccnb1\_CCNB1 & 0.59 & 0.83 & 0.76 & $X \leq T$ \\ 
 \cline{2-7} 
- & 4 & cirbp\_CIRBP & 21.27 & 0.82 & 0.75 & $X > T $ \\ 
+ & 4 & cirbp\_CIRBP & 22.5 & 0.83 & 0.77 & $X > T $ \\ 
 \cline{2-7} 
- & 5 & fth1\_FTH1\_B & 1.87 & 0.76 & 0.7 & $X > T $ \\ 
+ & 5 & fth1\_FTH1\_B & 1.86 & 0.79 & 0.74 & $X > T $ \\ 
 \cline{1-7} 
-S08-blastula - S10-Spemann organizer (mesoderm) & 1 & chrd\_CHRD\_1 & 6.42 & 0.95 & 0.97 & $X > T $ \\ 
+S08-blastula - S10-Spemann organizer (mesoderm) & 1 & chrd\_CHRD\_1 & 5.17 & 0.94 & 0.97 & $X > T $ \\ 
 \cline{2-7} 
- & 2 & lhx1\_LHX1 & 3.73 & 0.96 & 0.98 & $X > T $ \\ 
+ & 2 & lhx1\_LHX1 & 2.03 & 0.93 & 0.96 & $X > T $ \\ 
 \cline{2-7} 
- & 3 & LOC100495259\_MGC147314 & 0.81 & 0.95 & 0.97 & $X > T $ \\ 
+ & 3 & LOC100495259\_MGC147314 & 0.81 & 0.92 & 0.95 & $X > T $ \\ 
 \cline{2-7} 
- & 4 & eef1a1\_EEF1AS & 16.39 & 0.94 & 0.96 & $X > T $ \\ 
+ & 4 & eef1a1\_EEF1AS & 16.01 & 0.95 & 0.97 & $X > T $ \\ 
 \cline{2-7} 
- & 5 & Xetrov90028359m\_GSK3B & 141.24 & 0.91 & 0.95 & $X \leq T$ \\ 
+ & 5 & Xetrov90028359m\_GSK3B & 142.92 & 0.92 & 0.96 & $X \leq T$ \\ 
 \cline{1-7} 
-S08-blastula - S10-Spemann organizer (endoderm) & 1 & frzb2\_FRZB2 & 1.43 & 0.94 & 0.96 & $X > T $ \\ 
+S08-blastula - S10-Spemann organizer (endoderm) & 1 & frzb2\_FRZB2 & 1.48 & 0.96 & 0.98 & $X > T $ \\ 
 \cline{2-7} 
- & 2 & Xetrov90028359m\_GSK3B & 132.51 & 0.91 & 0.94 & $X \leq T$ \\ 
+ & 2 & eef1a1\_EEF1AS & 15.44 & 0.86 & 0.91 & $X > T $ \\ 
 \cline{2-7} 
- & 3 & frzb\_FRZB\_1 & 2.61 & 0.88 & 0.92 & $X > T $ \\ 
+ & 3 & frzb\_FRZB\_1 & 2.61 & 0.88 & 0.93 & $X > T $ \\ 
 \cline{2-7} 
- & 4 & eef1a1\_EEF1AS & 15.55 & 0.91 & 0.94 & $X > T $ \\ 
+ & 4 & Xetrov90028359m\_GSK3B & 135.75 & 0.95 & 0.97 & $X \leq T$ \\ 
 \cline{2-7} 
- & 5 & LOC100495259\_MGC147314 & 1.82 & 0.87 & 0.92 & $X > T $ \\ 
+ & 5 & LOC100495259\_MGC147314 & 1.65 & 0.88 & 0.93 & $X > T $ \\ 
 \cline{1-7} 
-S08-blastula - S10-endoderm & 1 & frzb2\_FRZB2 & 3.39 & 0.97 & 0.99 & $X > T $ \\ 
+S08-blastula - S10-endoderm & 1 & frzb2\_FRZB2 & 3.39 & 0.98 & 0.99 & $X > T $ \\ 
 \cline{2-7} 
- & 2 & frzb\_FRZB\_1 & 8.07 & 0.96 & 0.98 & $X > T $ \\ 
+ & 2 & frzb\_FRZB\_1 & 8.29 & 0.98 & 0.99 & $X > T $ \\ 
 \cline{2-7} 
- & 3 & atp1a1\_ATP1A1A\_1 & 9.5 & 0.97 & 0.98 & $X > T $ \\ 
+ & 3 & sox17a\_SOX17A & 5.61 & 0.97 & 0.99 & $X > T $ \\ 
 \cline{2-7} 
- & 4 & tmem150b\_TMEM150B & 2.45 & 0.98 & 0.99 & $X > T $ \\ 
+ & 4 & atp1a1\_ATP1A1A\_1 & 9.5 & 0.97 & 0.99 & $X > T $ \\ 
 \cline{2-7} 
- & 5 & sox17a\_SOX17A & 5.61 & 0.97 & 0.98 & $X > T $ \\ 
+ & 5 & tmem150b\_TMEM150B & 1.9 & 0.98 & 0.99 & $X > T $ \\ 
 \hline
 \end{tabular}
